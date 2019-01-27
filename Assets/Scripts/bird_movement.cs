@@ -6,7 +6,8 @@ public class bird_movement : MonoBehaviour
 {
     public List<Transform> hopSpots;
     public Transform broodingPos;
-    public int speed;
+    public int speedMove;
+    public int speedRot;
 
     [SerializeField]
     private bool _inNest = false;
@@ -39,6 +40,7 @@ public class bird_movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //update hopcheck
         if (hopCheck < 0)
         {
             hopCheck = 0;
@@ -47,29 +49,38 @@ public class bird_movement : MonoBehaviour
         {
             hopCheck = hopSpots.Count - 1;
         }
-        if (Input.GetKeyDown("left"))
+
+        float stepMove = speedMove * Time.deltaTime;
+        float stepRot = speedRot * Time.deltaTime;
+
+        if (!_inNest)
         {
-            if (!_inNest)
+            if (Input.GetKeyDown("left"))
             {
-                // calculate distance to move
-                float step = speed * Time.deltaTime;
                 hopCheck++;
-                transform.position = Vector3.MoveTowards(transform.position, hopSpots[hopCheck].position, step);
             }
+            if (Input.GetKeyDown("right"))
+            {
+                hopCheck--;
+            }
+            transform.position = Vector3.MoveTowards(transform.position, hopSpots[hopCheck].position, stepMove);
         }
-        if (Input.GetKeyDown("right"))
-        {
-            // calculate distance to move
-            float step = speed * Time.deltaTime;
-            hopCheck--;
-            transform.position = Vector3.MoveTowards(transform.position, hopSpots[hopCheck].position, step);
-        }
+
         if (Input.GetKeyDown("space"))
         {
-            // calculate distance to move
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, broodingPos.position, step);
             _inNest = true;
+        }
+        if (_inNest)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, broodingPos.position, stepMove);
+            if (Input.GetKey("left"))
+            {
+                transform.Rotate(Vector3.up * stepRot, Space.World);
+            }
+            if (Input.GetKey("right"))
+            {
+                transform.Rotate(Vector3.down * stepRot, Space.World);
+            }
         }
     }
 }

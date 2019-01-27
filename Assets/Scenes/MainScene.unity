@@ -462,7 +462,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 577571793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23a14f565e024c04db289eb434474897, type: 3}
+  m_Script: {fileID: 11500000, guid: c9afb9efdbd0e014ba46bf52aace2bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hopSpots:
@@ -470,7 +470,8 @@ MonoBehaviour:
   - {fileID: 514386422}
   - {fileID: 2007259738}
   broodingPos: {fileID: 1516828831}
-  speed: 1000
+  speedMove: 10
+  speedRot: 10
   _inNest: 0
   hopCheck: 0
 --- !u!54 &577571796
@@ -597,7 +598,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516828830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.531595, y: -20.613552, z: -10.330956}
+  m_LocalPosition: {x: -6.531595, y: -16.8, z: -10.330956}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 133811285}
