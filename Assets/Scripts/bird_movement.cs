@@ -6,13 +6,13 @@ public class bird_movement : MonoBehaviour
 {
     public List<Transform> hopSpots;
     public Transform broodingPos;
+    public int speed;
 
     [SerializeField]
     private bool _inNest = false;
-    private Animator _anim_control;
+    [SerializeField]
     private int hopCheck;
-    //
-
+    private Animator _anim_control;
 
 
     void Start()
@@ -20,6 +20,7 @@ public class bird_movement : MonoBehaviour
         _inNest = false;
     }
 
+    //To check which spot the bird is at
     void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Collider"))
@@ -34,24 +35,41 @@ public class bird_movement : MonoBehaviour
             }
         }
     }
-    
-    
+
     // Update is called once per frame
     void Update()
     {
-        //checking which spot the bird is at now
-        if ()
-
-        //Animation sets
-        if (Input.GetKey("left"))
+        if (hopCheck < 0)
+        {
+            hopCheck = 0;
+        }
+        if (hopCheck > hopSpots.Count - 1)
+        {
+            hopCheck = hopSpots.Count - 1;
+        }
+        if (Input.GetKeyDown("left"))
         {
             if (!_inNest)
             {
-
+                // calculate distance to move
+                float step = speed * Time.deltaTime;
+                hopCheck++;
+                transform.position = Vector3.MoveTowards(transform.position, hopSpots[hopCheck].position, step);
             }
         }
-        else
+        if (Input.GetKeyDown("right"))
         {
+            // calculate distance to move
+            float step = speed * Time.deltaTime;
+            hopCheck--;
+            transform.position = Vector3.MoveTowards(transform.position, hopSpots[hopCheck].position, step);
+        }
+        if (Input.GetKeyDown("space"))
+        {
+            // calculate distance to move
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, broodingPos.position, step);
+            _inNest = true;
         }
     }
 }
