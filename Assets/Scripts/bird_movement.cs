@@ -8,21 +8,47 @@ public class bird_movement : MonoBehaviour
     public Transform broodingPos;
 
     [SerializeField]
-    private bool inNest = false;
-    private Animator anim_control;
+    private bool _inNest = false;
+    private Animator _anim_control;
+    private int hopCheck;
+    //
 
-    // Start is called before the first frame update
+
+
     void Start()
     {
-        inNest = false;
+        _inNest = false;
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("Collider"))
+        {
+            for (int i = 0; i <= hopSpots.Count; i++)
+            {
+                if (hopSpots[i] == col.transform)
+                {
+                    hopCheck = i;
+                    break;
+                }
+            }
+        }
+    }
+    
+    
     // Update is called once per frame
     void Update()
     {
+        //checking which spot the bird is at now
+        if ()
+
         //Animation sets
-        if (!inNest)
+        if (Input.GetKey("left"))
         {
+            if (!_inNest)
+            {
+
+            }
         }
         else
         {
